@@ -3,6 +3,7 @@ import numpy as np
 import time
 import cv2
 
+
 def decode_predictions(scores, geometry, probThr=0.8):
     (numRows, numCols) = scores.shape[2:4]
     rects = []
@@ -32,10 +33,11 @@ def decode_predictions(scores, geometry, probThr=0.8):
             confidences.append(scoresData[x])
     return confidences, rects
 
+
 def draw_boxes(image, boxes, ratio):
     (rW, rH) = ratio
 
-    for (startX, startY, endX, endY) in boxes:
+    for startX, startY, endX, endY in boxes:
         # scale the bounding box coordinates
         startX = int(startX * rW)
         startY = int(startY * rH)
@@ -50,9 +52,8 @@ def draw_boxes(image, boxes, ratio):
     cv2.destroyAllWindows()
 
 
-
 path_to_the_image = "de.png"
-path_to_the_model= "frozen_east_text_detection.pb"
+path_to_the_model = "frozen_east_text_detection.pb"
 
 image = cv2.imread(path_to_the_image)
 orig = image.copy()
@@ -70,7 +71,9 @@ print("[INFO] loading EAST text detector...")
 
 net = cv2.dnn.readNet(path_to_the_model)
 
-blob = cv2.dnn.blobFromImage(image, 1.0, (W, H), (123.68, 116.78, 103.94), swapRB=True, crop=False)
+blob = cv2.dnn.blobFromImage(
+    image, 1.0, (W, H), (123.68, 116.78, 103.94), swapRB=True, crop=False
+)
 
 start = time.time()
 net.setInput(blob)
