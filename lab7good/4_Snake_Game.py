@@ -25,6 +25,7 @@ def grow_snake():
     snakePosX.append(0)
     snakePosY.append(0)
 
+
 def generate_food():
     global foodPosX, foodPosY
     isFreePos = False
@@ -36,6 +37,7 @@ def generate_food():
             if x == foodPosX and y == foodPosY:
                 isFreePos = False
                 break
+
 
 # set default snake starting position (values are just chosen by preference):
 snakePosX = [3]
@@ -95,7 +97,7 @@ while True:
     # check game borders:
     if snakePosX[0] == 0 or snakePosX[0] == 7:
         break
-    
+
     if snakePosY[0] == 0 or snakePosY[0] == 7:
         break
 
