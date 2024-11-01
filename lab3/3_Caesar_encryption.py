@@ -1,5 +1,5 @@
 def caesar(msg, key):
-    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
     new_message = ""
     for c in msg:
         position = alphabet.find(c)
@@ -9,14 +9,15 @@ def caesar(msg, key):
     return new_message
 
 
-
 def main():
     key = 3
     while True:
         message = input("Please enter a message: ")
-        if message == 'q': break
+        if message == "q":
+            break
         encry_message = caesar(message, key)
         print("Encrypted message: ", encry_message)
+
 
 ##############################################################################
 

@@ -1,5 +1,5 @@
 def caesar_encryption(msg):
-    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
     privare_key = 19
     encry_message = ""
 
@@ -10,8 +10,9 @@ def caesar_encryption(msg):
         encry_message += new_character
     return encry_message
 
+
 def caesar_decryption(encrypted_msg, private_key):
-    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
     decrypted_message = ""
 
     for c in encrypted_msg:
@@ -32,9 +33,11 @@ def main():
     encryp = caesar_encryption(message)
     print("Encrypted: ", encryp)
 
-    decryp = caesar_decryption(encryp, 19)  # Use the same private_key (23) for decryption
+    decryp = caesar_decryption(
+        encryp, 19
+    )  # Use the same private_key (23) for decryption
     print("Decrypted:", decryp)
+
 
 if __name__ == "__main__":
     main()
-
