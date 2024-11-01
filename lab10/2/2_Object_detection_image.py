@@ -7,7 +7,29 @@ image_path = "kutya.jpg"
 
 conf_limit = 0.25
 
-CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat","bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog","horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train","tv/monitor"]
+CLASSES = [
+    "background",
+    "aeroplane",
+    "bicycle",
+    "bird",
+    "boat",
+    "bottle",
+    "bus",
+    "car",
+    "cat",
+    "chair",
+    "cow",
+    "diningtable",
+    "dog",
+    "horse",
+    "motorbike",
+    "person",
+    "pottedplant",
+    "sheep",
+    "sofa",
+    "train",
+    "tv/monitor",
+]
 
 COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
 print("Loading model...")
@@ -32,10 +54,11 @@ for i in np.arange(0, detections.shape[2]):
         label = "{}: {:.2f}%".format(CLASSES[idx], confidence * 100)
         print("{}".format(label))
 
-        cv2.rectangle(image, (startX, startY), (endX, endY),COLORS[idx], 2)
+        cv2.rectangle(image, (startX, startY), (endX, endY), COLORS[idx], 2)
         y = startY - 15 if startY - 15 > 15 else startY + 15
-        cv2.putText(image, label, (startX, y),
-        cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2)
+        cv2.putText(
+            image, label, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2
+        )
 
 cv2.imshow("Image", image)
 
