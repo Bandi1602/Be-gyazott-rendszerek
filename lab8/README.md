@@ -39,5 +39,6 @@ Each script is designed to work with a compatible camera device (e.g., USB camer
 
 To install required libraries:
 
-```bash
+```python
 pip install opencv-python pyzbar
+```

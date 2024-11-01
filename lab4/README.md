@@ -43,5 +43,6 @@ No additional libraries are required beyond Python's standard library.
 
 To run any of these scripts, open a terminal or command prompt, navigate to the directory containing the scripts, and execute with:
 
-```bash
+```python
 python script_name.py
+```

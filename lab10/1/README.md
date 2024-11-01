@@ -29,3 +29,15 @@ To install required libraries:
 
 ```bash
 pip install tensorflow opencv-python
+```
+
+## Usage
+
+```python
+python script_name.py
+
+#example:
+
+python 1_Image_classification.py
+```
+

@@ -30,5 +30,6 @@ Each script is designed to work with a camera input and utilizes color detection
 
 To install required libraries:
 
-```bash
+```python
 pip install opencv-python
+```

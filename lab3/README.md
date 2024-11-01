@@ -8,7 +8,6 @@ This repository contains several Python scripts that implement various encryptio
 - [File Descriptions](#file-descriptions)
 - [Requirements](#requirements)
 - [Usage](#usage)
-- [License](#license)
 
 ## Getting Started
 
@@ -40,5 +39,6 @@ No additional libraries are required beyond Python's standard library.
 
 To run any script, open a terminal or command prompt and navigate to the directory containing the scripts. Then execute a script with:
 
-```bash
+```python
 python script_name.py
+```
