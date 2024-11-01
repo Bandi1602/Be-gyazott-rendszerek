@@ -9,11 +9,11 @@ video_path = None
 buffsize = 64
 indx = 0
 
-# Lower and upper boundaries of a "green" object in HSV color space
-green_range = [(35, 100, 100), (85, 255, 255)]
+# Lower and upper boundaries of a "red" object in HSV color space
+red_range = [(0, 50, 50), (10, 255, 255)]
 
 # Initialize the list of tracked points
-path = np.zeros((buffsize, 2), dtype='int')
+path = np.zeros((buffsize, 2), dtype="int")
 
 if video_path is None:
     vs = VideoStream().start()
@@ -35,7 +35,7 @@ while True:
     blur = cv2.GaussianBlur(frame, (9, 9), 0)
     hsv = cv2.cvtColor(blur, cv2.COLOR_BGR2HSV)
 
-    mask = cv2.inRange(hsv, green_range[0], green_range[1])
+    mask = cv2.inRange(hsv, red_range[0], red_range[1])
     mask = cv2.erode(mask, None, iterations=2)
     mask = cv2.dilate(mask, None, iterations=2)
 
@@ -58,18 +58,31 @@ while True:
                 path[indx] = (center[0], center[1])
                 indx += 1
             else:
-                path[0:indx-1] = path[1:indx]
-                path[indx-1] = (center[0], center[1])
+                path[0 : indx - 1] = path[1:indx]
+                path[indx - 1] = (center[0], center[1])
 
     for i in range(1, len(path)):
         # If either of the tracked points are None, ignore them
         if path[i - 1] is None or path[i] is None:
             continue
-        # Otherwise, compute thickness and draw lines
-        thickness = int(np.sqrt(len(path) / float(i + 1)) * 2.5)
-        cv2.line(frame, (path[i-1][0], path[i-1][1]), (path[i][0], path[i][1]), (0, 0, 255), thickness)
 
-    # Create a black and white image with green object highlighted in white
+        # Calculate thickness based on the distance from the center
+        distance = np.sqrt(
+            (path[i][0] - center[0]) ** 2 + (path[i][1] - center[1]) ** 2
+        )
+        max_distance = np.sqrt((frame.shape[1] / 2) ** 2 + (frame.shape[0] / 2) ** 2)
+        normalized_thickness = int((1 - (distance / max_distance)) * 10)
+        thickness = max(1, normalized_thickness)
+
+        cv2.line(
+            frame,
+            (path[i - 1][0], path[i - 1][1]),
+            (path[i][0], path[i][1]),
+            (0, 0, 255),
+            thickness,
+        )
+
+    # Create a black and white image with red object highlighted in white
     result_image = cv2.bitwise_and(frame, frame, mask=mask)
 
     # Display the original frame and the black and white image
@@ -77,7 +90,7 @@ while True:
     cv2.imshow("Black and White Image", result_image)
 
     # Check for the 'q' key to exit the loop
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord("q"):
         break
 
 # Release the video stream and close OpenCV windows
